@@ -1,0 +1,25 @@
+{
+  "name": "gcontacts",
+  "version": "1.0.0",
+  "description": "Sample app to fetch google contacts using google people apis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riteshtailor20/GContacts.git"
+  },
+  "keywords": [
+    "googleapis",
+    "google",
+    "contacts",
+    "peopleapis"
+  ],
+  "author": "Ritesh Tailor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/riteshtailor20/GContacts/issues"
+  },
+  "homepage": "https://github.com/riteshtailor20/GContacts#readme"
+}
