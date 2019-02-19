@@ -16,9 +16,7 @@ oauth2Client.on('tokens', (tokens) => {
   	  console.log("Refresh Token:"+tokens.refresh_token);
   	}
   	console.log("Access Token:"+tokens.access_token);
-	oauth2Client.setCredentials(tokens);	
-  	getUserInfo();
-  	getPeopleInfo();
+	return tokens;
 });
 
 async function getUserInfo(){
@@ -34,6 +32,7 @@ async function getUserInfo(){
 			console.log(err);
 		}else{
 			console.log(res.data);
+			return res.data;
 		}
 	});
 }
@@ -47,21 +46,12 @@ async function getPeopleInfo(){
 	await peopleService.people.connections.list({
 	    resourceName: 'people/me',
 	    personFields: 'names,emailAddresses',
-	  },(err, res) => {
-	  	if(err) console.log(err);
-	  	else{
+	  },async (err, res) => {
+	  	if(err){
+	  		console.log(err);
+	  	}else{
 	  		const connections = res.data.connections;
-		    if (connections) {
-		      connections.forEach((person) => {
-		        if (person.names && person.names.length > 0) {
-		          console.log(person.names[0].displayName);
-		        } else {
-		          console.log('No display name found for connection.');
-		        }
-		      });
-		    } else {
-		      console.log('No connections found.');
-		    }
+	  		return await connections;
 		}
 	});
 }
@@ -96,9 +86,20 @@ app.get('/',(req, res) => {
 	res.send({ result: true, url:url });
 });
 
-app.get('/authRedirect', (req, res) => {
+app.get('/authRedirect', async (req, res) => {
 	// console.log(req.query.code);
-	const {tokens} = oauth2Client.getToken(req.query.code);	
+	const {tokens} = await oauth2Client.getToken(req.query.code);
+	await oauth2Client.setCredentials(tokens);  
+	let userData = await getUserInfo();
+  	let peopleData = await getPeopleInfo();
+  	peopleData.forEach((person) => {
+        if (person.names && person.names.length > 0) {
+          console.log(person.names[0].displayName);
+        } else {
+          console.log('No display name found for connection.');
+        }
+      });
+
 	res.send({result:true, message: 'code set success', tokens: tokens});
 });
 
