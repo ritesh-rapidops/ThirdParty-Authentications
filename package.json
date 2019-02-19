@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/riteshtailor20/GContacts/issues"
   },
-  "homepage": "https://github.com/riteshtailor20/GContacts#readme"
+  "homepage": "https://github.com/riteshtailor20/GContacts#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "googleapis": "^37.2.0"
+  }
 }
