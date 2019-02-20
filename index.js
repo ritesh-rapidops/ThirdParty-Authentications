@@ -52,9 +52,6 @@ async function getPeopleInfo(callback){
 	});
 }
 
-
-
-
 // generate a url that asks permissions for Blogger and Google Calendar scopes
 const scopes = [
   'https://www.googleapis.com/auth/contacts',
@@ -86,23 +83,29 @@ app.get('/authRedirect', async (req, res) => {
 	await oauth2Client.setCredentials(tokens);
 	let userData ={};
 	let contactsData ={};
-	new Promise((resolve,reject)=> {
-		getUserInfo((res)=>{
-	  		userData=res;	  			
-	  	});	  	
-	  	getPeopleInfo((res)=>{
-			contactsData=res;
-			resolve(true);		
-		});
-	}).then((result)=> {
-		res.send({
-			result:true, 
-			message: 'code set success', 
-			tokens: tokens,
-			userdata: userData,
-			contactsdata: contactsData
-		});
-	}).catch((err) => console.log(err));	
+	res.send({
+		result:true, 
+		message: 'code set success', 
+		tokens: tokens
+	});	
+});
+
+app.get('/userdata', async(req, res) => {
+	oauth2Client.setCredentials({
+    	refresh_token: req.query.token
+    });
+	getUserInfo((result)=>{
+		res.send(result);
+	});	
+});
+
+app.get('/contacts',async (req, res) => {
+    oauth2Client.setCredentials({
+    	refresh_token: req.query.token
+    });
+	await getPeopleInfo((result)=>{
+		res.send(result);
+	});
 });
 
 const port = 3000;
