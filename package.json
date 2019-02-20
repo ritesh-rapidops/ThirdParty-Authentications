@@ -1,7 +1,7 @@
 {
-  "name": "gcontacts",
+  "name": "ThirdParty-Authentications",
   "version": "1.0.0",
-  "description": "Sample app to fetch google contacts using google people apis",
+  "description": "Sample app for different 3rd Party Authentications",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
