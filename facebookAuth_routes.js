@@ -16,8 +16,7 @@ passport.deserializeUser(function(user, done) {
 router.use(passport.initialize());
 router.use(passport.session());
 
-
-router.get('/', passport.authenticate('facebook', {scope:["email"]}));
+router.get('/',passport.authenticate('facebook', {scope:["email"]}));
 
 router.get('/callback',passport.authenticate('facebook', 
 	{ successRedirect: '/facebook/success', failureRedirect: '/facebook/failure'}));
