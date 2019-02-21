@@ -1,2 +1,2 @@
 # GContacts
-Sample app to fetch google contacts using google people apis
+Sample app for different authentications like facebook, github and google. 
