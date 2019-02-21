@@ -5,6 +5,8 @@ const cookieparser = require('cookie-parser');
 const cors = require('cors');
 const app = express();
 const googleAuthRoutes = require('./googleAuth_routes');
+const facebookAuthRoutes = require('./facebookAuth_routes');
+const githubAuthRoutes = require('./github_auth_controller');
 
 app.use(bodyparser.json());
 
@@ -16,6 +18,8 @@ app.use(
 );
 
 app.use('/google',googleAuthRoutes);
+app.use('/facebook',facebookAuthRoutes);
+app.use('/github',githubAuthRoutes);
 
 const port = 3000;
 
